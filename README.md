@@ -1,2 +1,2 @@
-# azure-scp-principal-propagation
-End-to-end scenario for principal propagation between Microsoft Azure and SAP Cloud Platform
+This repository contains the sample code for the principal propagation scenario between Microsoft Azure and SAP Cloud Platform. More information about the scenario and a detailled setup guide can be found [in this blog post](https://blogs.sap.com/?p=1143252).
+![Scenario overview](images/1.PNG)

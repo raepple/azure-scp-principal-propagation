@@ -1,0 +1,18 @@
+---
+applications:
+
+- name: service
+  memory: 1024M
+  timeout: 300
+  random-route: true
+  path: application/target/service-application.war
+  buildpacks:
+    - sap_java_buildpack
+  env:
+    TARGET_RUNTIME: tomee7
+    SET_LOGGING_LEVEL: '{ROOT: INFO, com.sap.cloud.sdk: INFO}'
+    JBP_CONFIG_SAPJVM_MEMORY_SIZES: 'metaspace:128m..'
+  routes:
+    - route: service-9a3cf852trial.cfapps.us10.hana.ondemand.com
+  services:
+    - service-xsuaa
