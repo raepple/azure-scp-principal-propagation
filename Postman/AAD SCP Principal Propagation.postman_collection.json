@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "a922f74d-870a-45aa-a739-b3fa6cc55069",
+		"name": "AAD SCP Principal Propagation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Web App Login to obtain Access Token from AAD",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://login.microsoftonline.com/{{AAD tenant ID}} /oauth2/v2.0/authorize?client_id={{Web App Client ID}}&response_type=token&redirect_uri=https://webapp.contoso.com/auth&scope=api://{{Web App Client ID}}/scp.access&nonce=9876543&response_mode=fragment",
+					"protocol": "https",
+					"host": [
+						"login",
+						"microsoftonline",
+						"com"
+					],
+					"path": [
+						"{{AAD tenant ID}} ",
+						"oauth2",
+						"v2.0",
+						"authorize"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "{{Web App Client ID}}"
+						},
+						{
+							"key": "response_type",
+							"value": "token"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "https://webapp.contoso.com/auth"
+						},
+						{
+							"key": "scope",
+							"value": "api://{{Web App Client ID}}/scp.access"
+						},
+						{
+							"key": "nonce",
+							"value": "9876543"
+						},
+						{
+							"key": "response_mode",
+							"value": "fragment"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request SAML assertion from AAD with ObO flow",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+							"type": "text"
+						},
+						{
+							"key": "assertion",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "{{Web App Client ID}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{Web App Client Secret}}",
+							"type": "text"
+						},
+						{
+							"key": "resource",
+							"value": "https://{{SCP account name}}.authentication.{{SCP landscape}}.hana.ondemand.com",
+							"type": "text"
+						},
+						{
+							"key": "requested_token_use",
+							"value": "on_behalf_of",
+							"type": "text"
+						},
+						{
+							"key": "requested_token_type",
+							"value": "urn:ietf:params:oauth:token-type:saml2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://login.microsoftonline.com/{{AAD tenant ID}}/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"login",
+						"microsoftonline",
+						"com"
+					],
+					"path": [
+						"{{AAD tenant ID}}",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request access token from SCP XSUAA with SAML Bearer Grant Type (RFC 7522)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "v5jSDru+7DdwMM1YW2AtKkFVGH0=",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "sb-service!t9576",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "urn:ietf:params:oauth:grant-type:saml2-bearer",
+							"type": "text"
+						},
+						{
+							"key": "assertion",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{SCP account name}}.authentication.us10.hana.ondemand.com/oauth/token/alias/9a3cf852trial.aws-live",
+					"protocol": "https",
+					"host": [
+						"{{SCP account name}}",
+						"authentication",
+						"us10",
+						"hana",
+						"ondemand",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token",
+						"alias",
+						"9a3cf852trial.aws-live"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Call backend service on SCP with XSUAA access token",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://service-{{SCP account name}}.cfapps.{{SCP landscape}}.hana.ondemand.com/hello",
+					"protocol": "https",
+					"host": [
+						"service-{{SCP account name}}",
+						"cfapps",
+						"{{SCP landscape}}",
+						"hana",
+						"ondemand",
+						"com"
+					],
+					"path": [
+						"hello"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f450e2af-91f4-4469-90e1-3b5aca640f5a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "e45ff935-a0d9-40e7-83db-d7e1a341da1c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "ed3a6cbf-8dbb-4af4-868e-26ff7c8ec817",
+			"key": "Web App Client ID",
+			"value": "<client id>"
+		},
+		{
+			"id": "2b77d420-6d81-410e-ad67-c1ca1aa4340b",
+			"key": "Web App Client Secret",
+			"value": "<client secret>"
+		},
+		{
+			"id": "ab317be7-1945-4325-84bd-e9d09b620931",
+			"key": "SCP account name",
+			"value": "<scp account name>"
+		},
+		{
+			"id": "885256bd-951a-4dea-b393-7fa19498d8c0",
+			"key": "SCP landscape",
+			"value": "<landscape>"
+		},
+		{
+			"id": "1f3298f1-51f2-47e1-819e-18930e4ae62c",
+			"key": "AAD tenant ID",
+			"value": "<tenant id>"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

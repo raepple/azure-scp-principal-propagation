@@ -13,6 +13,6 @@ applications:
     SET_LOGGING_LEVEL: '{ROOT: INFO, com.sap.cloud.sdk: INFO}'
     JBP_CONFIG_SAPJVM_MEMORY_SIZES: 'metaspace:128m..'
   routes:
-    - route: service-<your-trial-org-name>.cfapps.us10.hana.ondemand.com
+    - route: service-9a3cf852trial.cfapps.us10.hana.ondemand.com
   services:
     - service-xsuaa
