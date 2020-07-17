@@ -159,7 +159,7 @@
 					]
 				},
 				"url": {
-					"raw": "https://{{SCP account name}}.authentication.us10.hana.ondemand.com/oauth/token/alias/9a3cf852trial.aws-live",
+					"raw": "https://{{SCP account name}}.authentication.us10.hana.ondemand.com/oauth/token/alias/{{SCP account name}}.aws-live",
 					"protocol": "https",
 					"host": [
 						"{{SCP account name}}",
