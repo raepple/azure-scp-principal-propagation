@@ -37,6 +37,10 @@
             <artifactId>scp-cf</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.sap.cloud.sdk.s4hana</groupId>
+            <artifactId>s4hana-all</artifactId>
+        </dependency>        
+        <dependency>
             <groupId>com.sap.cloud.sdk.cloudplatform</groupId>
             <artifactId>security-servlet</artifactId>
             <scope>runtime</scope>
