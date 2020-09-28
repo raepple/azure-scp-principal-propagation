@@ -1,0 +1,49 @@
+[ ca ]
+default_ca = trustedca
+
+[ crl_ext ]
+issuerAltName=issuer:copy
+authorityKeyIdentifier=keyid:always
+
+[ trustedca ]
+dir = .
+new_certs_dir = $dir
+unique_subject = no
+certificate = $dir/trustedca.crt
+database = $dir/index
+private_key = $dir/trustedca.key
+serial = $dir/serial
+default_days = 1825
+default_md = sha256
+policy = trustedca_policy
+x509_extensions = trustedca_extensions
+crlnumber = $dir/crlnumber
+default_crl_days = 730
+
+[ trustedca_policy ]
+commonName = supplied
+stateOrProvinceName = supplied
+countryName = optional
+emailAddress = optional
+organizationName = supplied
+organizationalUnitName = optional
+
+[ trustedca_extensions ]
+basicConstraints = critical,CA:TRUE
+keyUsage = critical,any
+subjectKeyIdentifier = hash
+#authorityKeyIdentifier=keyid:always,issuer
+#authorityKeyIdentifier=keyid:always,issuer:always
+authorityKeyIdentifier=keyid,issuer
+keyUsage = digitalSignature,keyEncipherment,cRLSign,keyCertSign
+extendedKeyUsage = serverAuth
+
+[ v3_ca ]
+basicConstraints = critical,CA:TRUE,pathlen:0
+keyUsage = critical,any
+subjectKeyIdentifier = hash
+#authorityKeyIdentifier=keyid:always,issuer
+#authorityKeyIdentifier=keyid:always,issuer:always
+authorityKeyIdentifier=keyid,issuer
+keyUsage = digitalSignature,keyEncipherment,cRLSign,keyCertSign
+extendedKeyUsage = serverAuth
