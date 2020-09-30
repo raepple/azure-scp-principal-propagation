@@ -26,32 +26,4 @@
         <role-name>Display</role-name>
     </security-role>
 
-<!--
-    <filter>
-        <filter-name>RestCsrfPreventionFilter</filter-name>
-        <filter-class>org.apache.catalina.filters.RestCsrfPreventionFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>RestCsrfPreventionFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter>
-        <filter-name>HttpSecurityHeadersFilter</filter-name>
-        <filter-class>com.sap.cloud.sdk.cloudplatform.security.servlet.HttpSecurityHeadersFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>HttpSecurityHeadersFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter>
-        <filter-name>HttpCachingHeaderFilter</filter-name>
-        <filter-class>com.sap.cloud.sdk.cloudplatform.security.servlet.HttpCachingHeaderFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>HttpCachingHeaderFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
--->
 </web-app>
