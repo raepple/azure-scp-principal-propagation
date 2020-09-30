@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a922f74d-870a-45aa-a739-b3fa6cc55069",
+		"_postman_id": "b488684e-c061-4f84-9025-ffa1cd17bc6b",
 		"name": "AAD SCP Principal Propagation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -159,12 +159,12 @@
 					]
 				},
 				"url": {
-					"raw": "https://{{SCP account name}}.authentication.us10.hana.ondemand.com/oauth/token/alias/{{SCP account name}}.aws-live",
+					"raw": "https://{{SCP account name}}.authentication.{{SCP landscape}}.hana.ondemand.com/oauth/token/alias/{{SCP account name}}.aws-live-{{SCP landscape}}",
 					"protocol": "https",
 					"host": [
 						"{{SCP account name}}",
 						"authentication",
-						"us10",
+						"{{SCP landscape}}",
 						"hana",
 						"ondemand",
 						"com"
@@ -173,7 +173,7 @@
 						"oauth",
 						"token",
 						"alias",
-						"9a3cf852trial.aws-live"
+						"{{SCP account name}}.aws-live-{{SCP landscape}}"
 					]
 				}
 			},
@@ -222,7 +222,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "f450e2af-91f4-4469-90e1-3b5aca640f5a",
+				"id": "ed42d47a-f18a-4db8-bffc-13ebaa293f56",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -232,7 +232,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "e45ff935-a0d9-40e7-83db-d7e1a341da1c",
+				"id": "7225138a-c38f-4ad4-91f0-0c2da76e9545",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -242,29 +242,39 @@
 	],
 	"variable": [
 		{
-			"id": "ed3a6cbf-8dbb-4af4-868e-26ff7c8ec817",
+			"id": "38a35644-1194-4595-857a-1b6da994d61e",
 			"key": "Web App Client ID",
-			"value": "<client id>"
+			"value": ""
 		},
 		{
-			"id": "2b77d420-6d81-410e-ad67-c1ca1aa4340b",
+			"id": "8d58f752-34c5-47cb-9da3-0924fd8b9a1e",
 			"key": "Web App Client Secret",
-			"value": "<client secret>"
+			"value": ""
 		},
 		{
-			"id": "ab317be7-1945-4325-84bd-e9d09b620931",
+			"id": "fbb5191e-51d2-423b-b297-0748ad9d67f3",
 			"key": "SCP account name",
-			"value": "<scp account name>"
+			"value": ""
 		},
 		{
-			"id": "885256bd-951a-4dea-b393-7fa19498d8c0",
+			"id": "cc0b6734-47cf-4c12-998c-95abfd9bdcf3",
 			"key": "SCP landscape",
-			"value": "<landscape>"
+			"value": ""
 		},
 		{
-			"id": "1f3298f1-51f2-47e1-819e-18930e4ae62c",
+			"id": "d1ce24eb-24aa-4f7a-b20a-2887cd3ffef7",
 			"key": "AAD tenant ID",
-			"value": "<tenant id>"
+			"value": ""
+		},
+		{
+			"id": "615089ca-f33b-4109-b751-61ac2176c70e",
+			"key": "XSUAA Client ID",
+			"value": ""
+		},
+		{
+			"id": "c565e26d-54b0-4885-8b44-5dc122c2d5be",
+			"key": "XSUAA Client Secret",
+			"value": ""
 		}
 	],
 	"protocolProfileBehavior": {}
