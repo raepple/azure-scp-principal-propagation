@@ -1,7 +1,6 @@
 package com.contoso.sample;
 
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.Iterator;
 
 import javax.servlet.annotation.HttpConstraint;
@@ -29,6 +28,7 @@ public class HelloWorldServlet extends HttpServlet
 {
     private static final long serialVersionUID = 1L;
     private static final String DESTINATION_NAME = "npl_http";
+    private static final String CURRENT_USER_HEADER_NAME = "current_user";
     
     @Override
     protected void doGet( final HttpServletRequest request, final HttpServletResponse response )
@@ -51,18 +51,13 @@ public class HelloWorldServlet extends HttpServlet
                        
             try {
                 ODataQueryResult result = ODataQueryBuilder                        
-                        .withEntity("/sap/opu/odata/SAP/ZAZURESAP_PP_SRV", "SalesOrderSet")                        
+                        .withEntity("/sap/opu/odata/SAP/ZAZURE_SAP_PP_SRV", "SalesOrderSet")                        
                         .withoutMetadata()
                         .build()
                         .execute(DESTINATION_NAME);
 
-                writeLine(response, "ODate Response Code: " + result.getHttpStatusCode());
-
-                Enumeration<String> headerNames = result.getHeaderNames();
-                while (headerNames.hasMoreElements()) {
-                    String headerName = headerNames.nextElement();
-                    writeLine(response, "OData Query Response Header: " + headerName);
-                }
+                writeLine(response, "SAP Gateway OData Service Response Code: " + result.getHttpStatusCode());
+                writeLine(response, "OData Service executed for SAP user: " + result.getHeader(CURRENT_USER_HEADER_NAME).values().toArray()[0]);         
             } catch (Exception ex) {
                 writeLine(response, "Exception: " + ex.getMessage());
             }
