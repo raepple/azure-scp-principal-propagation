@@ -1,7 +1,0 @@
-@EndUserText.label: 'Access control for product category'
-@MappingRole: true
-define role ZDCLPRODUCTCATEGORY {
-    grant select on ZPRODUCTSVIEW
-    where (ProductCategory) = aspect pfcg_auth(S_EPM_PD,
-                                PDCATEGORY, ACTVT = '03');
-}
