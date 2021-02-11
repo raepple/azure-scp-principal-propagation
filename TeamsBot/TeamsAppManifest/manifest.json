@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.7/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.7",
+  "version": "1.0.2",
+  "id": "5063c6b0-c0d4-40d7-b10c-ffd098bc8612",
+  "packageName": "com.microsoft.teams.samples",
+  "developer": {
+    "name": "BestRun Corp.",
+    "websiteUrl": "https://example.azurewebsites.net",
+    "privacyUrl": "https://example.azurewebsites.net/privacy",
+    "termsOfUseUrl": "https://example.azurewebsites.net/termsofuse"
+  },
+  "icons": {
+    "color": "icon-color.png",
+    "outline": "icon-outline.png"
+  },
+  "name": {
+    "short": "Product Search Bot",
+    "full": "Product Search Bot with Single Sign On and Principal Propagation to SAP"
+  },
+  "description": {
+    "short": "Product Search Bot SSO and Principal Propagation",
+    "full": "This is a bot for testing Single Sign on for Teams and Principal Propagation to SAP"
+  },
+  "accentColor": "#FFFFFF",
+  "bots": [
+    {
+      "botId": "5063c6b0-c0d4-40d7-b10c-ffd098bc8612",
+      "scopes": [
+        "personal",
+        "team",
+        "groupchat"
+      ],
+      "supportsFiles": false,
+      "isNotificationOnly": false
+    }
+  ],
+  "webApplicationInfo": {
+    "id": "5063c6b0-c0d4-40d7-b10c-ffd098bc8612",
+    "resource": "api://botid-5063c6b0-c0d4-40d7-b10c-ffd098bc8612"
+  },
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "validDomains": [
+    "token.botframework.com",
+    "ngrok.io"
+  ]
+}
