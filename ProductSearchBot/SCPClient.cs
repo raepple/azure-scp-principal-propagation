@@ -17,7 +17,7 @@ namespace Microsoft.BotBuilderSamples
     /// including user authentication with principal propagation based on 
     /// the OAuth 2.0 SAML Bearer Assertion Grant type.
     /// </summary>
-    public class SimpleSCPClient
+    public class SCPClient
     {
         // V1 AAD path for OBO flow
         private const string V1_PATH_OAUTH = "/{0}/oauth2/token";
@@ -47,7 +47,7 @@ namespace Microsoft.BotBuilderSamples
         private readonly string _xsuaaClientId;
         private readonly string _xsuaaSecret;
 
-        public SimpleSCPClient(IConfiguration configuration)
+        public SCPClient(IConfiguration configuration)
         {
             _appId = configuration["MicrosoftAppId"];
             _appSecret = configuration["MicrosoftAppPassword"];

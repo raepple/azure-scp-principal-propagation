@@ -20,7 +20,7 @@ namespace Microsoft.BotBuilderSamples
     public class MainDialog : LogoutDialog
     {
         private readonly ILogger _logger;
-        private SimpleSCPClient simpleSCPClient;
+        private SCPClient scpClient;
         private readonly string _cpiHost;
         private readonly string _cpiPath;
 
@@ -29,7 +29,7 @@ namespace Microsoft.BotBuilderSamples
         {
             _logger = logger;
 
-            simpleSCPClient = new SimpleSCPClient(configuration);
+            scpClient = new SCPClient(configuration);
 
             _cpiHost = configuration["CPIBaseURI"];
             _cpiPath = configuration["CPIPath"];
@@ -96,9 +96,9 @@ namespace Microsoft.BotBuilderSamples
                 _logger.LogInformation("Search started for product name: " + stepContext.Result);
                 string aadAccessToken = stepContext.Values["aadToken"].ToString();
                 _logger.LogInformation("Using AAD OAuth token: " + aadAccessToken);
-                var samlAssertion = await simpleSCPClient.GetSAMLAssertionFromAAD(aadAccessToken);
+                var samlAssertion = await scpClient.GetSAMLAssertionFromAAD(aadAccessToken);
                 _logger.LogInformation("Received SAML assertion from AAD: " + samlAssertion);
-                var scpAccessToken = await simpleSCPClient.GetAccessTokenFromSCP(samlAssertion);
+                var scpAccessToken = await scpClient.GetAccessTokenFromSCP(samlAssertion);
                 _logger.LogInformation("Received access token from SCP: " + scpAccessToken);
                 
                 using (HttpClient httpClient = new HttpClient())
