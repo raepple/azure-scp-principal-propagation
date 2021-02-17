@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.7/MicrosoftTeams.schema.json",
   "manifestVersion": "1.7",
   "version": "1.0.2",
-  "id": "5063c6b0-c0d4-40d7-b10c-ffd098bc8612",
+  "id": "<AAD bot app client id>",
   "packageName": "com.microsoft.teams.samples",
   "developer": {
-    "name": "BestRun Corp.",
+    "name": "Contoso Corp.",
     "websiteUrl": "https://example.azurewebsites.net",
     "privacyUrl": "https://example.azurewebsites.net/privacy",
     "termsOfUseUrl": "https://example.azurewebsites.net/termsofuse"
@@ -25,7 +25,7 @@
   "accentColor": "#FFFFFF",
   "bots": [
     {
-      "botId": "5063c6b0-c0d4-40d7-b10c-ffd098bc8612",
+      "botId": "<AAD bot app client id>",
       "scopes": [
         "personal",
         "team",
@@ -36,8 +36,8 @@
     }
   ],
   "webApplicationInfo": {
-    "id": "5063c6b0-c0d4-40d7-b10c-ffd098bc8612",
-    "resource": "api://botid-5063c6b0-c0d4-40d7-b10c-ffd098bc8612"
+    "id": "<AAD bot app client id>",
+    "resource": "api://<AAD bot app client id>"
   },
   "permissions": [
     "identity",
