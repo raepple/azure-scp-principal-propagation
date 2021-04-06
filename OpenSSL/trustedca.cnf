@@ -19,13 +19,14 @@ policy = trustedca_policy
 x509_extensions = trustedca_extensions
 crlnumber = $dir/crlnumber
 default_crl_days = 730
+copy_extensions = copy 
 
 [ trustedca_policy ]
 commonName = supplied
-stateOrProvinceName = supplied
+stateOrProvinceName = optional
 countryName = optional
 emailAddress = optional
-organizationName = supplied
+organizationName = optional
 organizationalUnitName = optional
 
 [ trustedca_extensions ]
