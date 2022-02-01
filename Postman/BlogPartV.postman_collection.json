@@ -1,0 +1,486 @@
+{
+	"info": {
+		"_postman_id": "1adba5f5-cea4-4a77-ba65-a151c8c70ee4",
+		"name": "Blog Part V",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Token Endpoint via SHGW",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Ldtf5432",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "CHATBOT",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "urn:ietf:params:oauth:grant-type:saml2-bearer",
+							"type": "default"
+						},
+						{
+							"key": "assertion",
+							"value": "xyz",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://sapshgw.bestrun.corp:8081/sap-a4h/sap/bc/sec/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"sapshgw",
+						"bestrun",
+						"corp"
+					],
+					"port": "8081",
+					"path": [
+						"sap-a4h",
+						"sap",
+						"bc",
+						"sec",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Token Endpoint via APIM",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Ldtf5432",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "CHATBOT",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://sapapimgmt.azure-api.net/sap-a4h/sap/bc/sec/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"sapapimgmt",
+						"azure-api",
+						"net"
+					],
+					"path": [
+						"sap-a4h",
+						"sap",
+						"bc",
+						"sec",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Token Endpoint (direct)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://vhcala4hci.bestrun.corp:50001/sap/bc/sec/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"vhcala4hci",
+						"bestrun",
+						"corp"
+					],
+					"port": "50001",
+					"path": [
+						"sap",
+						"bc",
+						"sec",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request ARM Access Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json(),\r",
+							"tokenResponse = JSON.stringify(response);\r",
+							"pm.collectionVariables.set(\"tokenResponse\", tokenResponse);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{ARM Secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{ARM Client}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "default"
+						},
+						{
+							"key": "resource",
+							"value": "https://management.azure.com/",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://login.microsoftonline.com/85642982-0095-4777-a3e2-147c5c95af60/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"login",
+						"microsoftonline",
+						"com"
+					],
+					"path": [
+						"85642982-0095-4777-a3e2-147c5c95af60",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Certificate entity to Gateway entity as Certificate Authority",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var tokenResponse = pm.collectionVariables.get(\"tokenResponse\");\r",
+							"var token = JSON.parse(tokenResponse).access_token;\r",
+							"pm.request.headers.add({key: \"Authorization\", value: \"Bearer \" + token});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"properties\": {\r\n    \"isTrusted\": true\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://management.azure.com/subscriptions/48b193a0-2500-45b5-ad41-f09cde1a95cd/resourceGroups/ProductSearchBotRG/providers/Microsoft.ApiManagement/service/SAPAPIMGMT/gateways/sapapimanagement/certificateAuthorities/SHGWTLS?api-version=2021-08-01",
+					"protocol": "https",
+					"host": [
+						"management",
+						"azure",
+						"com"
+					],
+					"path": [
+						"subscriptions",
+						"48b193a0-2500-45b5-ad41-f09cde1a95cd",
+						"resourceGroups",
+						"ProductSearchBotRG",
+						"providers",
+						"Microsoft.ApiManagement",
+						"service",
+						"SAPAPIMGMT",
+						"gateways",
+						"sapapimanagement",
+						"certificateAuthorities",
+						"SHGWTLS"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2021-08-01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unassign Certificate entity to Gateway entity as Certificate Authority",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var tokenResponse = pm.collectionVariables.get(\"tokenResponse\");\r",
+							"var token = JSON.parse(tokenResponse).access_token;\r",
+							"pm.request.headers.add({key: \"Authorization\", value: \"Bearer \" + token});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"properties\": {\r\n    \"isTrusted\": true\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://management.azure.com/subscriptions/48b193a0-2500-45b5-ad41-f09cde1a95cd/resourceGroups/ProductSearchBotRG/providers/Microsoft.ApiManagement/service/SAPAPIMGMT/gateways/sapapimanagement/certificateAuthorities/SHGWTLS?api-version=2021-08-01",
+					"protocol": "https",
+					"host": [
+						"management",
+						"azure",
+						"com"
+					],
+					"path": [
+						"subscriptions",
+						"48b193a0-2500-45b5-ad41-f09cde1a95cd",
+						"resourceGroups",
+						"ProductSearchBotRG",
+						"providers",
+						"Microsoft.ApiManagement",
+						"service",
+						"SAPAPIMGMT",
+						"gateways",
+						"sapapimanagement",
+						"certificateAuthorities",
+						"SHGWTLS"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2021-08-01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Assigned Certificate Authority",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var tokenResponse = pm.collectionVariables.get(\"tokenResponse\");\r",
+							"var token = JSON.parse(tokenResponse).access_token;\r",
+							"pm.request.headers.add({key: \"Authorization\", value: \"Bearer \" + token});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://management.azure.com/subscriptions/48b193a0-2500-45b5-ad41-f09cde1a95cd/resourceGroups/ProductSearchBotRG/providers/Microsoft.ApiManagement/service/SAPAPIMGMT/gateways/sapapimanagement/certificateAuthorities/SHGWTLS?api-version=2021-08-01",
+					"protocol": "https",
+					"host": [
+						"management",
+						"azure",
+						"com"
+					],
+					"path": [
+						"subscriptions",
+						"48b193a0-2500-45b5-ad41-f09cde1a95cd",
+						"resourceGroups",
+						"ProductSearchBotRG",
+						"providers",
+						"Microsoft.ApiManagement",
+						"service",
+						"SAPAPIMGMT",
+						"gateways",
+						"sapapimanagement",
+						"certificateAuthorities",
+						"SHGWTLS"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2021-08-01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get SAML Assertion from Azure AD",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "assertion",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCIsImtpZCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCJ9.eyJhdWQiOiJhcGk6Ly9ib3RpZC1iN2Q3YWRiMC01NmJjLTQ0MzEtYWVlYi1jNmYyNTQ1NjZiOTUiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC84NTY0Mjk4Mi0wMDk1LTQ3NzctYTNlMi0xNDdjNWM5NWFmNjAvIiwiaWF0IjoxNjQxMzI2MjEwLCJuYmYiOjE2NDEzMjYyMTAsImV4cCI6MTY0MTMzMTUwNywiYWNyIjoiMSIsImFpbyI6IkUyWmdZQWpQKzNkWk9KSmI5TldtanJadGEvVS8vRFd0WTVIVDQ3ZlZOc2dJWnRlZjRMMG55NGg5VTRnZWQrV0taQVhiMVlybkFRPT0iLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiZWY5MGVmZDktNmNjYi00N2M0LWE2ZDAtYmQ1NTdjNWIzMDJlIiwiYXBwaWRhY3IiOiIxIiwiZmFtaWx5X25hbWUiOiJEb2UiLCJnaXZlbl9uYW1lIjoiSm9obiIsImlwYWRkciI6IjIxNy4xMTMuMTgwLjI1IiwibmFtZSI6IkpvaG4gRG9lIiwib2lkIjoiM2Q3YzI3MjQtNGI1NC00YjNjLWI5NGMtYTQ1ODY1NzFkZmJkIiwicmgiOiIwLkFZRUFnaWxraFpVQWQwZWo0aFI4WEpXdllObnZrT19MYk1SSHB0QzlWWHhiTUM2QkFIOC4iLCJzY3AiOiJQcm9kdWN0LlJlYWQiLCJzdWIiOiItcFdSMHotVjNlY19NUU5sRi05WUZaNjlIdGxhTFdVZk5za2kyMnlGdkJJIiwidGlkIjoiODU2NDI5ODItMDA5NS00Nzc3LWEzZTItMTQ3YzVjOTVhZjYwIiwidW5pcXVlX25hbWUiOiJKb2huRG9lQGJlc3RydW5jb3JwLm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6IkpvaG5Eb2VAYmVzdHJ1bmNvcnAub25taWNyb3NvZnQuY29tIiwidXRpIjoiUjBXa0xaZXdkMC1la2h1SHBQTDlBUSIsInZlciI6IjEuMCJ9.j12xoAWCMyn0MUzqWiuijHI4agaugN7I17LpFi55bF64WEeSYnkbw2xyJ3Vq4A8OaxQXBUncP2A-p91aT9I6QmmRPoeo1jBikbFMUvtUqdpSgV5Yu-0Oll8aZWD5HIDdh7RlKlDvYza3tdNry7LKGiFXQTySZQRrWwP40ktpgZ-sAmjrIhbIxlSymTcNEeZOVgVQdfJAswVu030qD0E-AHx5sHJf8XYZHz8F_sqcRc6I-3jqMKPw4rSYI0d7DhkdO0pO9mSVvs52yYo9mTQwl8p1-XXuC4Xrg2CIpRXRpp4UdJgm90FsFfEiroWc1RBZGMTavTw4jGyCT127M4z8uQ",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "{{Bot Client ID}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{Bot Client Secret}}",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "https://a4h/sap.access",
+							"type": "text"
+						},
+						{
+							"key": "requested_token_use",
+							"value": "on_behalf_of",
+							"type": "text"
+						},
+						{
+							"key": "requested_token_type",
+							"value": "urn:ietf:params:oauth:token-type:saml2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://login.microsoftonline.com/85642982-0095-4777-a3e2-147c5c95af60/oauth2/v2.0/token",
+					"protocol": "https",
+					"host": [
+						"login",
+						"microsoftonline",
+						"com"
+					],
+					"path": [
+						"85642982-0095-4777-a3e2-147c5c95af60",
+						"oauth2",
+						"v2.0",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ARM Client",
+			"value": "50994883-12c3-423b-aa31-d7903ee832d4",
+			"type": "default"
+		},
+		{
+			"key": "ARM Secret",
+			"value": "HZ_7Q~DHbEl7OdIvKd3pGw9JD3ejdibf6duYq",
+			"type": "default"
+		},
+		{
+			"key": "tokenResponse",
+			"value": "{\"token_type\":\"Bearer\",\"expires_in\":\"3599\",\"ext_expires_in\":\"3599\",\"expires_on\":\"1641309524\",\"not_before\":\"1641305624\",\"resource\":\"https://management.azure.com/\",\"access_token\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCIsImtpZCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCJ9.eyJhdWQiOiJodHRwczovL21hbmFnZW1lbnQuYXp1cmUuY29tLyIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0Lzg1NjQyOTgyLTAwOTUtNDc3Ny1hM2UyLTE0N2M1Yzk1YWY2MC8iLCJpYXQiOjE2NDEzMDU2MjQsIm5iZiI6MTY0MTMwNTYyNCwiZXhwIjoxNjQxMzA5NTI0LCJhaW8iOiJFMlpnWUVqY3ZzYWlwVVYxd3h3eHJuZS85RjRYQUFBPSIsImFwcGlkIjoiNTA5OTQ4ODMtMTJjMy00MjNiLWFhMzEtZDc5MDNlZTgzMmQ0IiwiYXBwaWRhY3IiOiIxIiwiaWRwIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvODU2NDI5ODItMDA5NS00Nzc3LWEzZTItMTQ3YzVjOTVhZjYwLyIsImlkdHlwIjoiYXBwIiwib2lkIjoiOTk5YTlkZTktZDI5MC00NDliLTlmOTAtMGU4MGZiMDVlYzAxIiwicmgiOiIwLkFZRUFnaWxraFpVQWQwZWo0aFI4WEpXdllJTkltVkRERWp0Q3FqSFhrRDdvTXRTQkFBQS4iLCJzdWIiOiI5OTlhOWRlOS1kMjkwLTQ0OWItOWY5MC0wZTgwZmIwNWVjMDEiLCJ0aWQiOiI4NTY0Mjk4Mi0wMDk1LTQ3NzctYTNlMi0xNDdjNWM5NWFmNjAiLCJ1dGkiOiJOVzhVZmJ4UlVFeXRldTVaS0g3ekFRIiwidmVyIjoiMS4wIiwieG1zX3RjZHQiOjE2MTIyNzAyODN9.GqI2EDNh6LsjhFVUJRQaWDIHgVFSuGGpyZiFIa1TgMUm0sVJEXEjurAKuZHuUdXKPRs4kK0ArGrBAbl0gQplD9ccdbAAd4TQaU2L_Rh_JuzF_DYji4j16-fQpHcfB_RGF2dXpg5NWENts9sFMyToCSvAO8yh9fdc6dd7MwHx8zbc8GIp155zuyf1HZrPxb5kPZDZ7dFjc4IHul9NrIDUU2myWZmx0nP-_UuZedfoGJgqxppOw8KVT_3_aY0embsSRFuXijA5oxMNeENOw88OW7uRiakLrjQIUY32qllZKAcvUCYOzBSE78MpFGOMPAnhSvCiwlNSgJMGooM9PRrH2A\"}"
+		},
+		{
+			"key": "Bot Client ID",
+			"value": "ef90efd9-6ccb-47c4-a6d0-bd557c5b302e",
+			"type": "default"
+		},
+		{
+			"key": "Bot Client Secret",
+			"value": "3.AFZlP43Kc3S3tb3xwHoZ_5r~-O46m-3V",
+			"type": "default"
+		},
+		{
+			"key": "AAD tenant ID",
+			"value": "85642982-0095-4777-a3e2-147c5c95af60",
+			"type": "default"
+		}
+	]
+}
