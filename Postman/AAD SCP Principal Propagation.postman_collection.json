@@ -173,7 +173,7 @@
 						"oauth",
 						"token",
 						"alias",
-						"{{SCP account name}}.aws-live-{{SCP landscape}}"
+						"{{SCP account name}}.aws-live"
 					]
 				}
 			},
