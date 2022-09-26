@@ -1,0 +1,32 @@
+<mvc:View controllerName="com.microsoft.samples.iasaaddemo.controller.MainView" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" displayBlock="true">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <Table items="{path: 'events>/'}">
+                <columns>
+                    <Column>
+                        <Text text="Subject" />
+                    </Column>
+                    <Column>
+                        <Text text="Organizer" />
+                    </Column>
+                    <Column>
+                        <Text text="Start" />
+                    </Column>
+                    <Column>
+                        <Text text="End" />
+                    </Column>                
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{events>subject}" />
+                            <Text text="{events>organizer}" />
+                            <Text text="{events>start}" />
+                            <Text text="{events>end}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>	
+        </content>
+    </Page>
+</mvc:View>
