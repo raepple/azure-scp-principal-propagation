@@ -1,5 +1,5 @@
 {
-    "name": "approuter-iasaaddemo",
+    "name": "approuter-btpgraph",
     "dependencies": {
       "@sap/approuter": "^10.4.3"
     },

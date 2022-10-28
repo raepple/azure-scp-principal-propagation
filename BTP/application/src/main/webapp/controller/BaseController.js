@@ -1,5 +1,5 @@
 sap.ui.define(
-    ["sap/ui/core/mvc/Controller", "sap/ui/core/routing/History", "sap/ui/core/UIComponent", "com/microsoft/samples/iasaaddemo/model/formatter"],
+    ["sap/ui/core/mvc/Controller", "sap/ui/core/routing/History", "sap/ui/core/UIComponent", "com/microsoft/samples/btpgraph/model/formatter"],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      * @param {typeof sap.ui.core.routing.History} History
@@ -8,7 +8,7 @@ sap.ui.define(
     function (Controller, History, UIComponent, formatter) {
         "use strict";
 
-        return Controller.extend("com.microsoft.samples.iasaaddemo.controller.BaseController", {
+        return Controller.extend("com.microsoft.samples.btpgraph.controller.BaseController", {
             formatter: formatter,
 
             /**

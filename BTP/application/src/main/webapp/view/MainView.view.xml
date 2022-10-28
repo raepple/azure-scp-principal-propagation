@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.microsoft.samples.iasaaddemo.controller.MainView" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" displayBlock="true">
+<mvc:View controllerName="com.microsoft.samples.btpgraph.controller.MainView" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" displayBlock="true">
     <Page id="page" title="{i18n>title}">
         <content>
             <Table items="{path: 'events>/'}">

@@ -6,7 +6,7 @@ sap.ui.define(
     function (BaseController) {
         "use strict";
 
-        return BaseController.extend("com.microsoft.samples.iasaaddemo.controller.App", {
+        return BaseController.extend("com.microsoft.samples.btpgraph.controller.App", {
             onInit() {},
         });
     }

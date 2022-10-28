@@ -1,5 +1,5 @@
 sap.ui.define(
-    ["sap/ui/core/UIComponent", "sap/ui/Device", "com/microsoft/samples/iasaaddemo/model/models"],
+    ["sap/ui/core/UIComponent", "sap/ui/Device", "com/microsoft/samples/btpgraph/model/models"],
     /**
      * @param {typeof sap.ui.core.UIComponent} UIComponent
      * @param {typeof sap.ui.Device} Device
@@ -7,7 +7,7 @@ sap.ui.define(
     function (UIComponent, Device, models) {
         "use strict";
 
-        return UIComponent.extend("com.microsoft.samples.iasaaddemo.Component", {
+        return UIComponent.extend("com.microsoft.samples.btpgraph.Component", {
             metadata: {
                 manifest: "json",
             },

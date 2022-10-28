@@ -7,10 +7,10 @@ sap.ui.define(
     function (Controller, JSONModel) {
         "use strict";
 
-        return Controller.extend("com.microsoft.samples.iasaaddemo.controller.MainView", {
+        return Controller.extend("com.microsoft.samples.btpgraph.controller.MainView", {
             onInit: function () {
                 var oModel = new sap.ui.model.json.JSONModel();
-                oModel.loadData("https://approuter-iasaaddemo.cfapps.eu12.hana.ondemand.com/calendar");
+                oModel.loadData("https://approuter-btpgraph-123456.cfapps.eu12.hana.ondemand.com/calendar");
                 this.getView().setModel(oModel, "events");
             }
         });

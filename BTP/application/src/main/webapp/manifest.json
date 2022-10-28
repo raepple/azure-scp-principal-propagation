@@ -1,7 +1,7 @@
 {
   "_version": "1.42.0",
   "sap.app": {
-    "id": "com.microsoft.samples.iasaaddemo",
+    "id": "com.microsoft.samples.btpgraph",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -48,13 +48,13 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "com.microsoft.samples.iasaaddemo.i18n.i18n"
+          "bundleName": "com.microsoft.samples.btpgraph.i18n.i18n"
         }
       },
       "events": {
         "preload": true,
         "type": "sap.ui.model.json.JSONModel",
-        "uri": "https://approuter-iasaaddemo.cfapps.eu12.hana.ondemand.com/calendar"
+        "uri": "https://approuter-btpgraph-123456.cfapps.eu12.hana.ondemand.com/calendar"
       }
     },
     "resources": {
@@ -69,7 +69,7 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "com.microsoft.samples.iasaaddemo.view",
+        "viewPath": "com.microsoft.samples.btpgraph.view",
         "controlAggregation": "pages",
         "controlId": "app",
         "clearControlAggregation": false
@@ -94,7 +94,7 @@
       }
     },
     "rootView": {
-      "viewName": "com.microsoft.samples.iasaaddemo.view.App",
+      "viewName": "com.microsoft.samples.btpgraph.view.App",
       "type": "XML",
       "async": true,
       "id": "App"
