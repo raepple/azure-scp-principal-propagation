@@ -54,7 +54,7 @@
       "events": {
         "preload": true,
         "type": "sap.ui.model.json.JSONModel",
-        "uri": "https://approuter-btpgraph-123456.cfapps.eu12.hana.ondemand.com/calendar"
+        "uri": "https://approuter-btpgraph-<ID>.cfapps.<region>.hana.ondemand.com/calendar"
       }
     },
     "resources": {

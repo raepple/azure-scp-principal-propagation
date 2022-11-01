@@ -21,12 +21,16 @@ cd BTP
 mvn clean package
 ```
 
-## Create the identity service instance for obtaining the 
+## Login to BTP
+```shell
+cf login -a https://api.cf.<region>.hana.ondemand.com
+```
+
+## Create the identity service instance 
 Use the ias service broker and create a service instance (don't forget to replace the placeholders)
 ```shell
 cf create-service identity application ias-btpgraph
 ```
-
 ## Create the destination service instance
 Use the destination service broker to create a service instance
 ```shell
