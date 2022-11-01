@@ -10,4 +10,8 @@ public abstract class Constants {
     public static final String CLIENT_CREDENTIALS_GRANT_TYPE = "client_credentials";
     public static final String TOKEN_USE_OBO = "on_behalf_of";
     public static final String MSFT_GRAPH_DEFAULT_SCOPE = "https://graph.microsoft.com/.default";
+    public static final String AAD_TOKEN_ENDPOINT_DESTINATION = "aadTokenEndpoint";
+    public static final String IAS_TOKEN_ENDPOINT_DESTINATION = "iasTokenEndpoint";
+    public static final String IAS_TOKEN_EXCHANGE_DESTINATION = "iasTokenExchange";
+   
 }

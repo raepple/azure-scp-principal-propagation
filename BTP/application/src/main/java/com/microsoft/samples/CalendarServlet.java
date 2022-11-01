@@ -25,11 +25,6 @@ import okhttp3.Request;
 @WebServlet("/calendar")
 public class CalendarServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(CalendarServlet.class);
-
-    private static final String AAD_TOKEN_ENDPOINT_DESTINATION = "aadTokenEndpoint";
-    private static final String IAS_TOKEN_ENDPOINT_DESTINATION = "iasTokenEndpoint";
-    private static final String IAS_TOKEN_EXCHANGE_DESTINATION = "iasTokenExchange";
-    
     private static final String AAD_DEMOAPP_DEFAULT_SCOPE = "api://" + Constants.AAD_DEMOAPP_CLIENT_ID + "/.default";
     
     @Override
@@ -40,10 +35,10 @@ public class CalendarServlet extends HttpServlet {
 
         AuthToken iasToken = AuthTokenAccessor.getCurrentToken();
 
-        String clientAssertion = TokenRequestHelper.requestAADFederatedClientCredentialViaOIDCProxy(IAS_TOKEN_ENDPOINT_DESTINATION);   
-        String aadIASAccessToken = TokenRequestHelper.exchangeIASTokenViaOIDCProxy(IAS_TOKEN_EXCHANGE_DESTINATION, iasToken);
-        String aadDemoAppAccessToken = TokenRequestHelper.exchangeAADTokenWithFederatedClientCredential(AAD_TOKEN_ENDPOINT_DESTINATION, aadIASAccessToken, clientAssertion, Constants.AAD_IASAPP_CLIENT_ID, AAD_DEMOAPP_DEFAULT_SCOPE);
-        String graphTokenAccessToken = TokenRequestHelper.exchangeAADTokenWithFederatedClientCredential(AAD_TOKEN_ENDPOINT_DESTINATION, aadDemoAppAccessToken, clientAssertion, Constants.AAD_DEMOAPP_CLIENT_ID, Constants.MSFT_GRAPH_DEFAULT_SCOPE);
+        String clientAssertion = TokenRequestHelper.requestAADFederatedClientCredentialViaOIDCProxy(Constants.IAS_TOKEN_ENDPOINT_DESTINATION);   
+        String aadIASAccessToken = TokenRequestHelper.exchangeIASTokenViaOIDCProxy(Constants.IAS_TOKEN_EXCHANGE_DESTINATION, iasToken);
+        String aadDemoAppAccessToken = TokenRequestHelper.exchangeAADTokenWithFederatedClientCredential(Constants.AAD_TOKEN_ENDPOINT_DESTINATION, aadIASAccessToken, clientAssertion, Constants.AAD_IASAPP_CLIENT_ID, AAD_DEMOAPP_DEFAULT_SCOPE);
+        String graphTokenAccessToken = TokenRequestHelper.exchangeAADTokenWithFederatedClientCredential(Constants.AAD_TOKEN_ENDPOINT_DESTINATION, aadDemoAppAccessToken, clientAssertion, Constants.AAD_DEMOAPP_CLIENT_ID, Constants.MSFT_GRAPH_DEFAULT_SCOPE);
         GraphServiceClient<Request> graphClient = TokenRequestHelper.getGraphClient(graphTokenAccessToken);
         EventCollectionPage eventsPage = graphClient.me().calendar().events().buildRequest().get();
         JSONObject events = new JSONObject();

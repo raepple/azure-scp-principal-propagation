@@ -18,11 +18,7 @@ public class DebugServlet extends HttpServlet
 {
     private static final long serialVersionUID = 1L;
     private static final Logger logger = LoggerFactory.getLogger(DebugServlet.class);
-   
-    private static final String AAD_TOKEN_ENDPOINT_DESTINATION = "aadTokenEndpoint";
-    private static final String IAS_TOKEN_ENDPOINT_DESTINATION = "iasTokenEndpoint";
-    private static final String IAS_TOKEN_EXCHANGE_DESTINATION = "iasTokenExchange";
-    
+      
     private static final String AAD_DEMOAPP_DEFAULT_SCOPE = "api://" + Constants.AAD_DEMOAPP_CLIENT_ID + "/.default";
     
     @Override
@@ -41,16 +37,16 @@ public class DebugServlet extends HttpServlet
         
         response.getWriter().append("\n\nUser IAS Token: " + iasToken.getJwt().getToken());
 
-        String clientAssertion = TokenRequestHelper.requestAADFederatedClientCredentialViaOIDCProxy(IAS_TOKEN_ENDPOINT_DESTINATION);
+        String clientAssertion = TokenRequestHelper.requestAADFederatedClientCredentialViaOIDCProxy(Constants.IAS_TOKEN_ENDPOINT_DESTINATION);
         response.getWriter().append("\n\nClient Assertion from Azure AD:\n" + clientAssertion);
    
-        String aadIASAccessToken = TokenRequestHelper.exchangeIASTokenViaOIDCProxy(IAS_TOKEN_EXCHANGE_DESTINATION, iasToken);
+        String aadIASAccessToken = TokenRequestHelper.exchangeIASTokenViaOIDCProxy(Constants.IAS_TOKEN_EXCHANGE_DESTINATION, iasToken);
         response.getWriter().append("\n\nAzure AD access token for IAS application:\n" + aadIASAccessToken);
 
-        String aadDemoAppAccessToken = TokenRequestHelper.exchangeAADTokenWithFederatedClientCredential(AAD_TOKEN_ENDPOINT_DESTINATION, aadIASAccessToken, clientAssertion, Constants.AAD_IASAPP_CLIENT_ID, AAD_DEMOAPP_DEFAULT_SCOPE);
+        String aadDemoAppAccessToken = TokenRequestHelper.exchangeAADTokenWithFederatedClientCredential(Constants.AAD_TOKEN_ENDPOINT_DESTINATION, aadIASAccessToken, clientAssertion, Constants.AAD_IASAPP_CLIENT_ID, AAD_DEMOAPP_DEFAULT_SCOPE);
         response.getWriter().append("\n\nAzure AD access token for Demo application:\n" + aadDemoAppAccessToken);
 
-        String graphTokenAccessToken = TokenRequestHelper.exchangeAADTokenWithFederatedClientCredential(AAD_TOKEN_ENDPOINT_DESTINATION, aadDemoAppAccessToken, clientAssertion, Constants.AAD_DEMOAPP_CLIENT_ID, Constants.MSFT_GRAPH_DEFAULT_SCOPE);
+        String graphTokenAccessToken = TokenRequestHelper.exchangeAADTokenWithFederatedClientCredential(Constants.AAD_TOKEN_ENDPOINT_DESTINATION, aadDemoAppAccessToken, clientAssertion, Constants.AAD_DEMOAPP_CLIENT_ID, Constants.MSFT_GRAPH_DEFAULT_SCOPE);
         response.getWriter().append("\n\nGraph access token for Demo application:\n" + graphTokenAccessToken);       
     }
 }

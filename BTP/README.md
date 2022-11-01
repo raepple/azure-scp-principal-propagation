@@ -36,11 +36,6 @@ Use the destination service broker to create a service instance
 ```shell
 cf create-service destination lite destination-btpgraph
 ```
-## Login to BTP
-Login to your BTP subaccount with the CF CLI
-```shell
-cf login -a <your regional API endpoint, e.g. https://api.cf.eu20.hana.ondemand.com>
-```
 
 ## Deploy the application
 Deploy the application using cf push. It will expect 1 GB of free memory quota.
