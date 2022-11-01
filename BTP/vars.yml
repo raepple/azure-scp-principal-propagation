@@ -2,7 +2,7 @@
 APP_NAME: btpgraph
 # some data to make the route url unique
 # change to another value, e.g. your User ID
-ID: <some random number>
+ID: <ID>
 # replace with region, e.g. ap21 or us10
 LANDSCAPE_APPS_DOMAIN: cfapps.<region>.hana.ondemand.com
 # SAPBTPApp client id in Azure AD
