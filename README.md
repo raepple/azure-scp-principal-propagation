@@ -1,2 +1,2 @@
-This repository contains the sample code of part VI from the blog series for the principal propagation between Microsoft Azure and SAP Cloud Platform. More information about the scenario and a detailled setup guide can be found [in this blog post](https://blogs.sap.com/?p=1605043&preview=true&preview_id=1605043).
+This repository contains the sample code of part VII from the blog series for the principal propagation between Microsoft Azure and SAP Cloud Platform. More information about the scenario and a detailled setup guide can be found [in this blog post](https://blogs.sap.com/?p=1749863&preview=true&preview_id=1749863).
 ![Scenario overview](images/1.PNG)

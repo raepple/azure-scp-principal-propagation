@@ -1,8 +1,0 @@
-{
-    "routes": [{
-      "source": "/",
-      "target": "/",
-      "destination": "app-destination"
-      }]
-  }
-  
